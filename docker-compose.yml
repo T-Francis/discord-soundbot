@@ -1,9 +1,23 @@
-version: '2'
+version: "3"
+
+services:
+
 services:
   discord-soundbot:
-    build: .
-    image: soundbot
+    container_name: discord.soundbot
+    image: aliart/discord-soundbot
+    build:
+      context: ./docker
+      args:
+        DOCKER_UID: ${DOCKER_UID}
+        DOCKER_GID: ${DOCKER_GID}
+        NODE_ENV: ${NODE_ENV}
+        USERNAME: discord-soundbot
     volumes:
-      - ./sounds:/app/sounds
-      - ./config/config.json:/app/config/config.json
-      - ./db.json:/app/db.json
+      - ./app:/app/
+    networks:
+      - discord-soundbot
+
+networks:
+  discord-soundbot:
+      name: discord-soundbot

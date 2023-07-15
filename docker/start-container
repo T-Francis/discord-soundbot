@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if [ ${NODE_ENV} = "development" ]
+then
+    yarn install --silent && npm run dev
+else
+    yarn install --frozen-lockfile --silent && yarn cache clean --force --silent \
+        && yarn build \
+        && yarn serve
+fi
